@@ -254,12 +254,19 @@
         method: 'POST',
         body: formData
       }).then(res => {
-        setTimeout(() => {
-          loader.style.display = 'none';
-          thankYou.style.display = 'block';
-        }, 1000); // now just 1 second
+        if (res.ok) {
+          setTimeout(() => {
+            loader.style.display = 'none';
+            thankYou.style.display = 'block';
+          }, 1000);
+        } else {
+          throw new Error('Network response was not ok');
+        }
       }).catch(err => {
-        loader.innerHTML = "<p style='color:red;'>Submission failed. Please try again later.</p>";
+        loader.style.display = 'none';
+        formContainer.style.display = 'block';
+        alert('Submission failed. Please try again later.');
+        console.error('Form submission error:', err);
       });
     });
   </script>
