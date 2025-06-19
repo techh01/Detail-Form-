@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Start Your Project</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-wrapper {
+      background-color: #1a1a1a;
+      padding: 25px 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 15px rgba(192,192,192, 0.15);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      background-color: #2b2b2b;
+      color: white;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: silver;
+    }
+
+    .loader,
+    .thank-you {
+      display: none;
+      text-align: center;
+      padding: 40px 25px;
+      background-color: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      color: white;
+      max-width: 400px;
+    }
+
+    .loader-ball {
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border-radius: 50%;
+      animation: drop 0.6s ease infinite alternate;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes drop {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(15px);
+      }
+    }
+
+    .thank-you-icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .thank-you h2 {
+      margin-bottom: 10px;
+    }
+
+    .thank-you p {
+      color: #ccc;
+    }
+
+    @media (max-width: 600px) {
+      .form-wrapper {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-wrapper" id="formContainer">
+    <form id="clientForm">
+      <input type="hidden" name="access_key" value="6d25fda7-dd04-4997-a937-d558eef4ac93">
+
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" name="phone" id="phone" required>
+
+      <label for="address">Address</label>
+      <input type="text" name="address" id="address" required>
+
+      <label for="service">Select Service</label>
+      <select name="service" id="service" required>
+        <option value="">-- Choose a Service --</option>
+        <option value="Website Design">Website Design</option>
+        <option value="Product Research">Product Research</option>
+        <option value="Store Setup">Store Setup</option>
+        <option value="Marketing Strategy">Marketing Strategy</option>
+        <option value="Content Creation">Content Creation</option>
+        <option value="Branding & Logo Design">Branding & Logo Design</option>
+      </select>
+
+      <label for="currency">Currency</label>
+      <select name="currency" id="currency" required>
+        <option value="">-- Select Budget Currency --</option>
+        <option value="USD">USD</option>
+        <option value="Euro">Euro</option>
+        <option value="GBP">GBP</option>
+      </select>
+
+      <label for="amount">Budget Amount</label>
+      <input type="number" name="amount" id="amount" placeholder="e.g. 500" required>
+
+      <label for="message">Additional Info</label>
+      <textarea name="message" id="message" placeholder="Tell us about your project..."></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="loader" id="loader">
+    <div class="loader-ball"></div>
+    <p>Sending your request...</p>
+  </div>
+
+  <div class="thank-you" id="thankYouMessage">
+    <div class="thank-you-icon">✓</div>
+    <h2>Thank You!</h2>
+    <p>Your application has been received. We'll contact you shortly.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('clientForm');
+    const formContainer = document.getElementById('formContainer');
+    const loader = document.getElementById('loader');
+    const thankYou = document.getElementById('thankYouMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      formContainer.style.display = 'none';
+      loader.style.display = 'block';
+
+      const formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      }).then(res => {
+        setTimeout(() => {
+          loader.style.display = 'none';
+          thankYou.style.display = 'block';
+        }, 1000); // now just 1 second
+      }).catch(err => {
+        loader.innerHTML = "<p style='color:red;'>Submission failed. Please try again later.</p>";
+      });
+    });
+  </script>
+
+</body>
+</html>
