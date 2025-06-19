@@ -1,9 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Application Form</title>
+  <title>Start Your Project</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,8 +12,8 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #000;
-      color: #fff;
+      background-color: #0f0f0f;
+      color: #ffffff;
       font-family: "Segoe UI", sans-serif;
       display: flex;
       justify-content: center;
@@ -22,18 +22,51 @@
     }
 
     .form-wrapper {
-      background-color: #111;
-      padding: 30px 25px;
-      border-radius: 12px;
+      background-color: #1a1a1a;
+      padding: 25px 20px;
+      border-radius: 10px;
       max-width: 500px;
       width: 100%;
-      box-shadow: 0 0 20px rgba(192, 192, 192, 0.1);
+      box-shadow: 0 0 15px rgba(192,192,192, 0.15);
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: silver;
+    .app-header {
+      color: white;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeInDown 0.8s ease forwards;
+      user-select: none;
+    }
+
+    .header-icon {
+      width: 28px;
+      height: 28px;
+      stroke: white;
+      stroke-width: 2.5;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .app-header:hover .header-icon {
+      opacity: 1;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     form {
@@ -42,18 +75,17 @@
     }
 
     label {
-      margin-top: 12px;
-      margin-bottom: 5px;
+      margin-top: 10px;
+      margin-bottom: 3px;
       font-weight: 500;
-      color: #ccc;
     }
 
     input, select, textarea {
       padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #333;
+      border-radius: 5px;
+      border: none;
       font-size: 1rem;
-      background-color: #1a1a1a;
+      background-color: #2b2b2b;
       color: white;
     }
 
@@ -65,36 +97,93 @@
     button {
       margin-top: 20px;
       padding: 12px;
-      background-color: silver;
-      color: #000;
+      background-color: white;
+      color: black;
       border: none;
       border-radius: 6px;
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: 0.3s;
     }
 
     button:hover {
-      background-color: #ddd;
+      background-color: silver;
+    }
+
+    .loader,
+    .thank-you {
+      display: none;
+      text-align: center;
+      padding: 40px 25px;
+      background-color: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      color: white;
+      max-width: 400px;
+    }
+
+    .loader-ball {
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border-radius: 50%;
+      animation: drop 0.6s ease infinite alternate;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes drop {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(15px);
+      }
+    }
+
+    .thank-you-icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .thank-you h2 {
+      margin-bottom: 10px;
+    }
+
+    .thank-you p {
+      color: #ccc;
     }
 
     @media (max-width: 600px) {
       .form-wrapper {
         padding: 20px 15px;
       }
-
-      button {
-        font-size: 0.95rem;
-      }
     }
   </style>
 </head>
 <body>
 
-  <div class="form-wrapper">
-    <h2>Application Form</h2>
-    <form action="https://formsubmit.co/webmakers111@gmail.com" method="POST">
+  <div class="form-wrapper" id="formContainer">
+    <h1 class="app-header">
+      Application Form
+      <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+      </svg>
+    </h1>
+
+    <form id="clientForm">
+      <input type="hidden" name="access_key" value="6d25fda7-dd04-4997-a937-d558eef4ac93">
+
       <label for="name">Full Name</label>
       <input type="text" name="name" id="name" required>
 
@@ -132,13 +221,48 @@
       <label for="message">Additional Info</label>
       <textarea name="message" id="message" placeholder="Tell us about your project..."></textarea>
 
-      <!-- Hidden Settings -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
-
       <button type="submit">Submit</button>
     </form>
   </div>
+
+  <div class="loader" id="loader">
+    <div class="loader-ball"></div>
+    <p>Sending your request...</p>
+  </div>
+
+  <div class="thank-you" id="thankYouMessage">
+    <div class="thank-you-icon">✓</div>
+    <h2>Thank You!</h2>
+    <p>Your application has been received. We'll contact you shortly.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('clientForm');
+    const formContainer = document.getElementById('formContainer');
+    const loader = document.getElementById('loader');
+    const thankYou = document.getElementById('thankYouMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      formContainer.style.display = 'none';
+      loader.style.display = 'block';
+
+      const formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      }).then(res => {
+        setTimeout(() => {
+          loader.style.display = 'none';
+          thankYou.style.display = 'block';
+        }, 1000); // now just 1 second
+      }).catch(err => {
+        loader.innerHTML = "<p style='color:red;'>Submission failed. Please try again later.</p>";
+      });
+    });
+  </script>
 
 </body>
 </html>
