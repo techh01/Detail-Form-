@@ -24,49 +24,25 @@
     .form-wrapper {
       background-color: #1a1a1a;
       padding: 25px 20px;
-      border-radius: 10px;
+      border-radius: 12px;
       max-width: 500px;
       width: 100%;
       box-shadow: 0 0 15px rgba(192,192,192, 0.15);
     }
 
     .app-header {
-      color: white;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       font-weight: 700;
-      font-size: 2.2rem;
-      margin-bottom: 25px;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      opacity: 0;
-      animation: fadeInDown 0.8s ease forwards;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: white;
       user-select: none;
     }
 
-    .header-icon {
-      width: 28px;
-      height: 28px;
-      stroke: white;
-      stroke-width: 2.5;
-      opacity: 0.85;
-      transition: opacity 0.3s ease;
-    }
-
-    .app-header:hover .header-icon {
-      opacity: 1;
-    }
-
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-15px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .app-subtitle {
+      font-size: 0.96rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 20px;
+      font-weight: 400;
     }
 
     form {
@@ -174,12 +150,8 @@
 <body>
 
   <div class="form-wrapper" id="formContainer">
-    <h1 class="app-header">
-      Application Form
-      <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-      </svg>
-    </h1>
+    <h1 class="app-header"><span style="color:#8ecae6;">Start</span> Your Project</h1>
+    <p class="app-subtitle">Let's build something amazing together.</p>
 
     <form id="clientForm">
       <input type="hidden" name="access_key" value="6d25fda7-dd04-4997-a937-d558eef4ac93">
